@@ -1,0 +1,9 @@
+﻿@model Project.Models.Product
+<form action="DoOrder">
+	<p><input type="number" name="ProductId" value="@Model.ProductId" hidden/></p>
+	<p>Address<input type="text" id="ShipAddress" name="ShipAddress" /></p>
+	<p>Price<input type="text" name="UnitPrice" value="@Model.UnitPrice"</></p>
+	<p>Input quantity<input type="number" name="Quantity" /></p>
+	<p>Discount <input type="text" name="Discount"  value="0" readonly/></p>
+	<div> <button type="submit">Buy</button></div>
+</form>

@@ -1,0 +1,128 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <title>List By Category</title>
+    <link rel="stylesheet" type="text/css" href="~/style.css">
+    <style>
+        body {
+            background-color: #f0f0f0;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border: 1px solid #ccc;
+            text-align: center;
+        }
+
+        th {
+            background-color: #007BFF;
+            color: #fff;
+        }
+
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 20px;
+            text-decoration: none;
+            color: #007BFF;
+        }
+
+            a:hover {
+                color: #0056b3;
+            }
+
+        .form-container {
+            display: flex;
+            align-items: center;
+            flex-direction: row;
+            justify-content: space-between;
+            margin-bottom: 20px;
+        }
+
+            .form-container form {
+                margin-right: 10px;
+            }
+
+            .form-container div {
+                margin-right: 10px;
+            }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Product List By Category</h1>
+        <div class="form-container">
+            <form id="categoryId" action="ListByCategory">
+                <select name="categoryId" onchange="myCategorySort()">
+                    <option value="0">All Category</option>
+                    <option value="1">Beverages</option>
+                    <option value="2">Condiments</option>
+                    <option value="3">Confections</option>
+                    <option value="4">Dairy Products</option>
+                    <option value="5">Grains/Cereals</option>
+                    <option value="6">Meat/Poultry</option>
+                    <option value="7">Produce</option>
+                    <option value="8">Seafood</option>
+                </select>
+            </form>
+        </div>
+        <script>
+            function myCategorySort() {
+                document.getElementById("categoryId").submit();
+            }
+        </script>
+        <table>
+            <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Name</th>
+                    <th>SupplierId</th>
+                    <th>CategoryId</th>
+                    <th>Price</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var product in Model)
+                {
+                    <tr>
+                        <td>@product.ProductId</td>
+                        <td>@product.ProductName</td>
+                        <td>@product.SupplierId</td>
+                        <td>@product.CategoryId</td>
+                        <td>@product.UnitPrice</td>
+                        <td>
+                            <a href="@Url.Action("Detail", "Product", new { id = product.ProductId })">View Detail</a>
+                            <a href="@Url.Action("Update", "Product", new { id = product.ProductId })">Update</a>
+                            <a href="@Url.Action("DoDelete", "Product", new { id = product.ProductId })" onclick="return confirm('Are you sure you want to delete?')">Delete</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+        <a href="@Url.Action("Index","Product")">Back to List</a>
+    </div>
+</body>
+</html>
